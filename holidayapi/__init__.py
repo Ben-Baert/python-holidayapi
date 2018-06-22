@@ -1,5 +1,5 @@
-import json
 import requests
+
 
 class v1:
     key = None
@@ -13,10 +13,10 @@ class v1:
         if 'key' not in parameters:
             parameters['key'] = self.key
 
-        response = requests.get(url, params=parameters);
-        data     = json.loads(response.text)
+        r = requests.get(url, params=parameters)
+        json = r.json() 
 
-        if response.status_code != 200:
+        if r.status_code != 200:
             if 'error' not in data: 
                 data['error'] = 'Unknown error.'
 
