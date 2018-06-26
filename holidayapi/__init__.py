@@ -112,7 +112,7 @@ class Api:
 
         return json
 
-    def first_upcoming(self, country):
+    def upcoming(self, country):
         d = datetime.datetime.now().date()
         r = self.request(country=country, year=d.year, month=d.month, day=d.day, upcoming=True)
 
@@ -121,9 +121,14 @@ class Api:
         except KeyError:
             raise MalformedResponseException
 
+        return [Holiday(**holiday) for holiday in holidays]
+
+    def first_upcoming(self, country):
+        holidays = self.upcoming(country=country)
+
         try:
             holiday = holidays[0]
         except IndexError:
             raise NoHolidayException
 
-        return Holiday(**holiday)
+        return holiday
