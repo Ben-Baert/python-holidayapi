@@ -1,7 +1,7 @@
 import requests
 
 
-class v1:
+class Api:
     key = None
 
     def __init__(self, key):
